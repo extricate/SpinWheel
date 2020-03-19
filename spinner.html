@@ -1,0 +1,247 @@
+<html lang="nl">
+<head>
+    <title>TMI Stellingenkiezer!</title>
+    <script src='Winwheel.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.9);
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 2rem;
+            text-transform: uppercase;
+            max-height: 100vh;
+            max-width: 100vw;
+            overflow: hidden;
+        }
+
+        .overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 999;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .button {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 2rem;
+            text-transform: uppercase;
+            background-color: #000;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 300px;
+            height: 200px;
+            width: 200px;
+            align-self: center;
+            border: 2px solid #fff;
+        }
+
+        .button:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #000;
+            cursor: pointer;
+        }
+
+        .spinner-container {
+            display: flex;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .spinner {
+            display: flex;
+            justify-content: center;
+            align-self: center;
+            margin: auto;
+        }
+
+        .spinner-inner {
+            align-self: center;
+            margin-top: 100px;
+        }
+
+        .logo {
+            height: 200px;
+            width: auto;
+        }
+
+        .hero {
+            z-index: 1000;
+            color: #fff;
+            font-size: 4rem;
+        }
+
+        .hero p {
+            margin-top: -40px;
+        }
+
+        #thesis {
+            color: #fff;
+            font-size: 4rem;
+            align-self: center;
+            margin: 2rem;
+            background-color: #ff00ff;
+            padding: 8px;
+            text-transform: lowercase;
+        }
+
+        #result {
+            display: none;
+        }
+
+        .title {
+            color: #fff;
+        }
+
+        .pointer {
+            position: absolute;
+            width: 100%;
+            margin-left: 36px;
+            background-image: url("hand.png");
+            background-position: center center;
+            background-repeat: no-repeat;
+            transform: rotate(-90deg);
+            height: 100px;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body>
+<div id="overlay" class="overlay">
+    <div class="hero">
+        <img src="logo.svg" class="logo">
+        <p id="text">Stellingkiezer!</p>
+    </div>
+    <button class="button" id="spinButton" onClick="theWheel.startAnimation();">Draai</button>
+</div>
+
+<div class="spinner-container">
+    <div class="spinner">
+        <div class="pointer"></div>
+        <canvas class="spinner-inner" id='canvas' width='800' height='800'>
+            Je browser ondersteunt deze spinner niet. Probeer een andere te gebruiken.
+        </canvas>
+    </div>
+</div>
+
+<div id="result" class="overlay">
+    <div class="title">Jullie stelling</div>
+    <div id="thesis"></div>
+</div>
+
+<script>
+    let theWheel = new Winwheel({
+        'numSegments': 13,         // Number of segments
+        'outerRadius': 400,       // The size of the wheel.
+        'centerX': 400,       // Used to position on the background correctly.
+        'centerY': 400,
+        'textFontSize': 22,        // Font size.
+        'segments':            // Definition of all the segments.
+            [
+                {
+                    'fillStyle': '#fff',
+                    'text': 'Smartphones en social media',
+                    'thesis': 'Er moeten meer ouders parental controls gebruiken (digitale regels vanuit de ouders naar hun kinderen)',
+                },
+                {
+                    'fillStyle': '#00ff00',
+                    'text': 'Gamen en verslaving',
+                    'thesis': 'Een gameverslaving is net zo erg als een drugsverslaving',
+                },
+                {
+                    'fillStyle': '#ff00ff',
+                    'text': 'Fake news',
+                    'thesis': 'Fake news moet verboden worden',
+                },
+                {
+                    'fillStyle': '#fff',
+                    'text': 'Fake news',
+                    'thesis': 'Liegen is vrijheid van meningsuiting',
+                    'description': ''
+                },
+                {
+                    'fillStyle': '#ff00ff',
+                    'text': 'Smartphones en social media',
+                    'thesis': 'Het klaslokaal is geen plek voor mobiele telefoons',
+                },
+                {
+                    'fillStyle': '#00ff00',
+                    'text': 'Gamen en verslaving',
+                    'thesis': 'Grote bedrijven moeten zorgen dat apps minder verslavend zijn',
+                },
+                {
+                    'fillStyle': '#fff',
+                    'text': 'Reclame',
+                    'thesis': 'Influencers mogen niet meer stiekem reclame maken',
+                },
+                {
+                    'fillStyle': '#00ff00',
+                    'text': 'Overig',
+                    'thesis': 'Nep-accounts van iemand moeten strafbaar worden',
+                },
+                {
+                    'fillStyle': '#ff00ff',
+                    'text': 'Reclame',
+                    'thesis': 'Reclame op social media moet strenger gecontroleerd worden',
+                },
+                {
+                    'fillStyle': '#fff',
+                    'text': 'Sexting',
+                    'thesis': 'Er moeten hogere straffen op het verspreiden van naaktfoto’s',
+                },
+                {
+                    'fillStyle': '#ff00ff',
+                    'text': 'Smartphones en social media',
+                    'thesis': 'Je moet minimaal 10 jaar zijn voor een smartphone',
+                },
+                {
+                    'fillStyle': '#55ea00',
+                    'text': 'Sexting',
+                    'thesis': 'Sexting kan nooit veilig',
+                },
+                {
+                    'fillStyle': '#ff00ff',
+                    'text': 'Overig',
+                    'thesis': 'Iemand pesten met memes moet strafbaar worden',
+                }
+
+            ],
+        'animation':
+            {
+                'type': 'spinToStop',
+                'duration': 8,
+                'spins': 6,
+                'callbackBefore': startedSpinning,
+                'callbackFinished': setThesis,
+                'soundTrigger': 'pin'
+            }
+    });
+
+    function startedSpinning() {
+        document.getElementById('overlay').style.display = "none";
+        document.getElementById('result').style.display = "none";
+    }
+
+    function setThesis(indicatedSegment) {
+        document.getElementById('result').style.display = "flex";
+        document.getElementById('thesis').innerText = indicatedSegment.thesis;
+    }
+</script>
+</body>
