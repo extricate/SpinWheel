@@ -96,10 +96,17 @@
             color: #fff;
             font-size: 4rem;
             align-self: center;
-            margin: 2rem;
+            margin: 1rem 2rem 2rem 2rem;
             background-color: #ff00ff;
             padding: 8px;
-            text-transform: lowercase;
+            text-transform: capitalize;
+        }
+
+        #subject {
+            color: #fff;
+            font-size: 3rem;
+            align-self: center;
+            text-transform: capitalize;
         }
 
         #result {
@@ -142,7 +149,8 @@
 </div>
 
 <div id="result" class="overlay">
-    <div class="title">Jullie stelling</div>
+    <div class="title">Jouw stelling gaat over</div>
+    <div id="subject"></div>
     <div id="thesis"></div>
 </div>
 
@@ -240,6 +248,7 @@
 
     function setThesis(indicatedSegment) {
         document.getElementById('result').style.display = "flex";
+        document.getElementById('subject').innerText = indicatedSegment.text;
         document.getElementById('thesis').innerText = indicatedSegment.thesis;
     }
 </script>
