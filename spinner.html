@@ -9,7 +9,6 @@
             font-family: 'Montserrat', Arial, sans-serif;
             font-weight: bold;
             font-size: 2rem;
-            text-transform: uppercase;
             max-height: 100vh;
             max-width: 100vw;
             overflow: hidden;
@@ -45,6 +44,10 @@
             width: 200px;
             align-self: center;
             border: 2px solid #fff;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
         }
 
         .button:hover {
@@ -99,7 +102,6 @@
             margin: 1rem 2rem 2rem 2rem;
             background-color: #ff00ff;
             padding: 8px;
-            text-transform: capitalize;
         }
 
         #subject {
@@ -134,7 +136,7 @@
 <div id="overlay" class="overlay">
     <div class="hero">
         <img src="logo.svg" class="logo">
-        <p id="text">Stellingkiezer!</p>
+        <p id="text" class="uppercase">Stellingkiezer!</p>
     </div>
     <button class="button" id="spinButton" onClick="theWheel.startAnimation();">Draai</button>
 </div>
@@ -149,7 +151,7 @@
 </div>
 
 <div id="result" class="overlay">
-    <div class="title">Jouw stelling gaat over</div>
+    <div class="title uppercase">Jouw stelling gaat over</div>
     <div id="subject"></div>
     <div id="thesis"></div>
 </div>
