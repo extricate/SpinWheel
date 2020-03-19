@@ -80,6 +80,22 @@
             margin-top: 100px;
         }
 
+        .full-logo-container {
+            position: absolute;
+            top: 100px;
+            left: 10px;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .full-logo {
+            height: 100px;
+            align-self: center;
+            width: auto;
+        }
+
         .logo {
             height: 200px;
             width: auto;
@@ -108,7 +124,7 @@
             color: #fff;
             font-size: 3rem;
             align-self: center;
-            text-transform: capitalize;
+            text-transform: initial;
         }
 
         #result {
@@ -141,6 +157,10 @@
     <button class="button" id="spinButton" onClick="theWheel.startAnimation();">Draai</button>
 </div>
 
+<div class="full-logo-container">
+    <img src="full-logo.svg" class="full-logo">
+</div>
+
 <div class="spinner-container">
     <div class="spinner">
         <div class="pointer"></div>
@@ -160,14 +180,16 @@
     let theWheel = new Winwheel({
         'numSegments': 13,
         'outerRadius': 400,
+        'innerRadius': 100,
         'centerX': 400,
         'centerY': 400,
         'textFontSize': 22,
+        'textAlignment': 'outer',
         'segments':
             [
                 {
                     'fillStyle': '#fff',
-                    'text': 'Smartphones en social media',
+                    'text': 'Phones en social media',
                     'thesis': 'Er moeten meer ouders parental controls gebruiken (digitale regels vanuit de ouders naar hun kinderen)',
                 },
                 {
@@ -188,7 +210,7 @@
                 },
                 {
                     'fillStyle': '#ff00ff',
-                    'text': 'Smartphones en social media',
+                    'text': 'Phones en social media',
                     'thesis': 'Het klaslokaal is geen plek voor mobiele telefoons',
                 },
                 {
@@ -214,11 +236,11 @@
                 {
                     'fillStyle': '#fff',
                     'text': 'Sexting',
-                    'thesis': 'Er moeten hogere straffen op het verspreiden van naaktfoto’s',
+                    'thesis': 'Er moeten hogere straffen op het verspreiden van naaktfoto\'s',
                 },
                 {
                     'fillStyle': '#ff00ff',
-                    'text': 'Smartphones en social media',
+                    'text': 'Phones en social media',
                     'thesis': 'Je moet minimaal 10 jaar zijn voor een smartphone',
                 },
                 {
@@ -238,10 +260,30 @@
                 'duration': 8,
                 'spins': 6,
                 'callbackBefore': startedSpinning,
+                'callbackSound': playSound,
                 'callbackFinished': setThesis,
                 'soundTrigger': 'pin'
+            },
+        'pins':                // Turn pins on.
+            {
+                'number': 13,
+                'fillStyle': 'black',
+                'outerRadius': 4,
             }
     });
+
+    // Loads the tick audio sound in to an audio object.
+    let audio = new Audio('tick.mp3');
+
+    // This function is called when the sound is to be played.
+    function playSound() {
+        // Stop and rewind the sound if it already happens to be playing.
+        audio.pause();
+        audio.currentTime = 0;
+
+        // Play the sound.
+        audio.play();
+    }
 
     function startedSpinning() {
         document.getElementById('overlay').style.display = "none";
